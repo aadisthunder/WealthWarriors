@@ -6,114 +6,203 @@
   <title>Contact Us</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #e6f9e6, #c8f7c5);
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #d4f7d4, #b0e6b0);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .contact-box {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 600px;
-    }
-    h2 {
-      margin-bottom: 20px;
-      text-align: center;
-      color: #333;
-    }
-    form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 20px;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 6px;
-      color: #444;
-    }
-    input, textarea {
-      width: 100%;
+      min-height: 100vh;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+    }
+
+    .contact-box {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      padding: 30px;
+      width: 600px;
+      max-width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .contact-box h2 {
+      text-align: center;
+      color: #2c6b2c;
+      margin-bottom: 10px;
+      font-weight: bold; /* Made header bold */
+    }
+
+    .contact-box p {
+      text-align: center;
+      color: #555;
+      margin-bottom: 20px;
       font-size: 14px;
     }
-    textarea {
-      resize: vertical;
-      height: 150px;
-      grid-column: span 2;
-    }
-    button {
-      grid-column: span 2;
-      margin-top: 10px;
-      width: 100%;
-      padding: 12px;
-      background: #28a745;
+
+    .home-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background-color: #4caf50;
       color: white;
+      font-weight: bold;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #218838;
-    }
-    .message {
-      grid-column: span 2;
-      margin-top: 10px;
       text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       font-size: 14px;
+    }
+
+    .home-button:hover {
+      background-color: #45a049;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-direction: column;
+    }
+
+    .form-group.horizontal {
+      flex-direction: row;
+    }
+
+    .form-group.full {
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 13px;
+      color: #2c6b2c;
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      flex: 1;
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4caf50;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .form-message {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      .contact-box {
+        width: 100%;
+        padding: 20px;
+      }
+
+      .form-group.horizontal {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-
+  <a href="index.html" class="home-button">➡ Home</a>
+  
   <div class="contact-box">
-    <h2>Contact Us</h2>
+    <h2 id="formIdHeader">Contact Us</h2>
+    <p id="formSubText">Write us so that our Team will reach out to You</p>
     <form id="contactForm">
-      <div>
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required>
+      <div class="form-group horizontal">
+        <div style="flex:1">
+          <label for="name">Name </label>
+          <input type="text" id="name" name="name" placeholder="Name" required>
+        </div>
+        <div style="flex:1">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Email" required>
+        </div>
       </div>
 
-      <div>
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required>
+      <div class="form-group horizontal">
+        <div style="flex:1">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" name="phone" placeholder="Phone" required>
+        </div>
+        <div style="flex:1">
+          <label for="topic">Topic</label>
+          <input type="text" id="topic" name="topic" placeholder="Topic" required>
+        </div>
       </div>
 
-      <div>
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone">
-      </div>
-
-      <div>
-        <label for="topic">Topic</label>
-        <input type="text" id="topic" name="topic" required>
-      </div>
-
-      <div>
+      <div class="form-group full">
         <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
+        <textarea id="message" name="message" placeholder="Your message..." required></textarea>
       </div>
-
-      <button type="submit">Send</button>
-      <div class="message" id="formMessage"></div>
+      <button type="submit">Send Message</button>
+      <div id="formMessage" class="form-message"></div>
     </form>
   </div>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzxWH3hyYoGoCLh0n5O-KRQI3kyDNPL3vX2ZsWxIYra3KCNotwyxDf_Ahkg6U2JC6wwuA/exec"; // Replace with your deployed Web App URL
+    // Display form ID in header
+    const urlParams = new URLSearchParams(window.location.search);
+    const formId = urlParams.get("formId") || "N/A";
+    document.getElementById("formIdHeader").innerText = formId;
 
-    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    // Set formId as value in Topic input
+    const topicInput = document.getElementById("topic");
+    topicInput.value = formId;
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzxWH3hyYoGoCLh0n5O-KRQI3kyDNPL3vX2ZsWxIYra3KCNotwyxDf_Ahkg6U2JC6wwuA/exec";
+    const form = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+    const inputs = form.querySelectorAll("input, textarea");
+
+    // Hide message when user focuses any input
+    inputs.forEach(input => {
+      input.addEventListener("focus", () => {
+        formMessage.style.display = "none";
+      });
+    });
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const formMessage = document.getElementById("formMessage");
+
+      if (typeof NProgress !== "undefined") {
+        NProgress.start();
+      }
 
       const data = {
         name: document.getElementById("name").value,
@@ -121,6 +210,7 @@
         phone: document.getElementById("phone").value,
         topic: document.getElementById("topic").value,
         message: document.getElementById("message").value,
+        formId: formId
       };
 
       try {
@@ -134,17 +224,25 @@
         if (result.status === "success") {
           formMessage.style.color = "green";
           formMessage.innerText = "✅ Message sent successfully!";
-          document.getElementById("contactForm").reset();
+          formMessage.style.display = "block";
+          form.reset();
         } else {
           throw new Error("Error saving data.");
         }
       } catch (error) {
         formMessage.style.color = "red";
         formMessage.innerText = "❌ Error sending message.";
+        formMessage.style.display = "block";
         console.error(error);
+      } finally {
+        if (typeof NProgress !== "undefined") {
+          NProgress.done();
+        }
       }
     });
   </script>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
 </body>
 </html>

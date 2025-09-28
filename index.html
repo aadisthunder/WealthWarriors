@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Warriors - Stocks, Trades, Investments</title>
+    <link rel="stylesheet" href="nstyles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        #about, #admission, #faculty, #hostel, #login-section {
+            scroll-margin-top: 80px;
+        }
+
+        .college-banner {
+            position: relative;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .banner-box {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .banner-box img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            opacity: 0.5;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding: 20px;
+            text-align: center;
+            width: 90%;
+        }
+
+        .banner-text h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0b3d91;
+        }
+
+        .banner-text p {
+            font-size: 1rem;
+            margin-top: 15px;
+            color: #000;
+            background: rgba(255,255,255,0.85);
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .banner-box img { transform: scale(1.2); }
+            .banner-text h1 { font-size: 1.8rem; }
+            .banner-text p { font-size: 0.95rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .banner-box img { transform: scale(1.05); }
+        }
+
+        body { overflow-x: hidden; }
+
+        .feature-icon img,
+        .stat-icon img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover zoom effect for images (except NSEbg) */
+        img:not([src$="NSEbg.jpg"]):hover {
+            transform: scale(1.05);
+        }
+
+        /* Hover zoom for data boxes */
+        .feature-item:hover,
+        .stat-card:hover,
+        .cta-image img:hover {
+            transform: scale(1.03);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item,
+        .stat-card,
+        .cta-image img {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="assets/WWLogo.jpg" alt="WW Logo" style="height:40px; width:auto; margin-right:8px;">
+                <span class="logo-text">Wealth Warriors</span>
+            </div>
+            <button class="login-btn" onclick="document.getElementById('login-section').scrollIntoView({behavior:'smooth'})">Login</button>
+        </div>
+    </nav>
+
+    <!-- Banner Section -->
+    <section class="NSE banner" id="home">
+        <div class="banner-box">
+            <img src="assets/NSEbg.jpg" alt="Stock Market Background">
+            <div class="banner-text">
+                <h1>Trade Smart, Invest Wisely</h1>
+                <p>Your gateway to stock market success, expert trading strategies, and wealth growth opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="about-top" id="about" style="background:#f9f9f9; padding:40px 20px; text-align:center;">
+        <h2>About Wealth Warriors</h2>
+        <p style="max-width:900px; margin:15px auto; font-size:16px; line-height:1.6;">
+            Wealth Warriors is your premier partner in financial growth, specializing in stock trading, investment strategies, and market analysis. 
+            Our mission is to empower traders and investors with data-driven insights, real-time stock trends, and expert guidance 
+            to maximize wealth and achieve long-term financial success. From beginners to seasoned investors, our platform offers 
+            tools, resources, and training to navigate the dynamic world of finance with confidence.
+        </p>
+    </section>
+
+    
+    <!-- Consultation Section -->
+<section class="services" style="margin:50px 0; padding-left:40px; position: relative;">
+    <!-- Green background box -->
+    <div style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ccf2d5; /* green color */
+        border-radius: 10px;
+        z-index: 0;
+    "></div>
+
+    <div class="services-content" style="position: relative; z-index: 1; padding: 20px; max-width: 600px;">
+        <h1>Wise Consultation</h1>
+        <p>perfect tips for trades.<br>
+        Right descision, right purchase at the right time.</p>
+        <button class="btn-secondary" id="contact-btn">Contact for Consultation ↓</button>
+    </div>
+</section>
+
+    <!-- Achievements Section -->
+    <section class="features" id="achievements" style="margin-top:50px;">
+        <div class="features-container">
+            <h2>Our Milestones</h2>
+            <div class="features-content" style="display:flex; gap:30px; align-items:flex-start;">
+                <div class="features-image">
+                    <img src="assets/trading.png" alt="Trading" onerror="this.style.display='none'">
+                </div>
+                <div class="features-list" style="flex:1;">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="assets/icons/trading.png" alt="Trading Insights">
+                        </div>
+                        <div class="feature-content">
+                            <h3>Expert Trading Insights</h3>
+                            <p>Leverage analytics and market trends.<br><br>Our advanced tools and expert insights help traders identify high-probability opportunities in stocks, commodities, and currencies.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="assets/icons/portfolio.png" alt="Portfolio Growth">
+                        </div>
+                        <div class="feature-content">
+                            <h3>Investment Portfolio Growth</h3>
+                            <p>Maximize returns while minimizing risks.<br><br>We provide portfolio management guidance and strategies to optimize your investments for steady, long-term growth.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <img src="assets/icons/track-record.png" alt="Proven Track Record">
+                        </div>
+                        <div class="feature-content">
+                            <h3>Proven Track Record</h3>
+                            <p>Thousands of successful traders.<br><br>Our strategies have consistently helped clients achieve financial goals, making Wealth Warriors a trusted name in the trading community.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="achievements">
+        <div class="about-container">
+            <div class="about-header" style="text-align:center; margin-bottom:40px;">
+                <h2>Services by <span class="highlight">Wealth Warriors</span></h2>
+                <p>Dealing in stocks, trades, and investments.<br><br>
+                Registered under SEBI Guidelines.<br><br>
+                Empowering clients worldwide to grow wealth efficiently and securely.</p>
+            </div>
+
+            <div class="stats-grid" style="display:flex; gap:30px; flex-wrap:wrap; justify-content:center;">
+                <div class="stat-card" style="flex:1 1 300px; max-width:350px; padding:30px; text-align:center; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.1);">
+                    <div class="stat-icon">
+                        <img src="assets/icons/management.png" alt="Portfolio Management">
+                    </div>
+                    <div class="stat-content" style="margin-top:15px;">
+                        <h3>Portfolio Management</h3>
+                        <p>Customized investment portfolios designed to maximize returns while minimizing risks, tailored to your financial goals.</p>
+                        <button class="btn-secondary" onclick="window.location.href='contact.html'" id="contact-btn">Contact here</button>
+                    </div>
+                </div>
+
+                <div class="stat-card" style="flex:1 1 300px; max-width:350px; padding:30px; text-align:center; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.1);">
+                    <div class="stat-icon">
+                        <img src="assets/icons/advisory.png" alt="Investment Advisory">
+                    </div>
+                    <div class="stat-content" style="margin-top:15px;">
+                        <h3>Investment Advisory</h3>
+                        <p>Expert guidance on stocks, mutual funds, and other financial instruments to help investors make informed decisions.</p>
+                        <button class="btn-secondary" onclick="window.location.href='portfolio.html'" id="contact-btn">Contact here</button>
+                    </div>
+                </div>
+
+                <div class="stat-card" style="flex:1 1 300px; max-width:350px; padding:30px; text-align:center; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.1);">
+                    <div class="stat-icon">
+                        <img src="assets/icons/equity.png" alt="Equity Derivatives">
+                    </div>
+                    <div class="stat-content" style="margin-top:15px;">
+                        <h3>Equity Derivatives</h3>
+                        <p>Trade futures and options with professional strategies, risk management, and real-time market insights for maximum profit potential.</p>
+                        <button class="btn-secondary" onclick="window.location.href='portfolio.html'" id="contact-btn">Contact here</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recognition Section -->
+    <section class="ugc" style="margin-top:50px;">
+        <div class="ugc-content">
+            <p>Proudly Recognized & Trusted by SEBI</p>
+        </div>
+    </section>
+
+    <!-- Founders and Team Section -->
+    <section class="cta" id="faculty">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2>Behind the Wealth Warriors</h2>
+                <p class="cta-subtitle">Providing you the best Advisory with Decades of Experiences</p> 
+                <button class="btn-primary" id="about-btn">About us</button>
+            </div>
+            <div class="cta-image">
+                <img src="assets/team.jpg" alt="Team" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </section>
+
+    <!--footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/WWLogo.jpg" alt="WW Logo" style="height:40px; width:auto; margin-right:8px;">
+                        <span class="logo-text">Wealth Warriors</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <address>
+                        Krishna Nagar, Near Krishna Nagar Metro Station,<br>
+                        East Delhi, Delhi 110051<br>
+                        India
+                    </address>
+                    <div class="contact-info">
+                        <a href="tel:99100 00000" style="display:block; margin-bottom:5px; color:#ff6600; font-weight:600;">99100 00000</a>
+                        <a href="mailto:aadityaparkash.india@gmail.com" style="display:block; color:#ff6600; font-weight:600;">aadityaparkash.india@gmail.com</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <div class="footer-links">
+                        <a href="#about" class="scroll-link">About Us</a>
+                        <a href="#achievements" class="scroll-link">Milestones</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 All rights reserved.</p>
+                <button class="scroll-top">↑</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contact-btn')?.addEventListener('click', () => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+
+        document.querySelector('.scroll-top')?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.querySelectorAll('.footer-links .scroll-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        function openLogin() {
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+</html>

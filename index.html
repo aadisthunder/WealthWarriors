@@ -107,6 +107,15 @@
         .cta-image img {
             transition: transform 0.3s ease;
         }
+
+        /* Notices Section */
+        .notices-section { background: #f1f9ff; padding: 40px 20px; text-align: center; }
+        .notices-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 20px auto 0; }
+        .notice-card { background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left; transition: transform 0.2s ease-in-out; position: relative; }
+        .notice-card:hover { transform: translateY(-5px); }
+        .notice-card h3 { font-size: 1.2rem; color: #0b3d91; margin-bottom: 10px; }
+        .notice-card p { font-size: 0.95rem; color: #333; line-height: 1.5; }
+        .notice-time { position: absolute; top: 10px; right: 15px; font-size: 0.8rem; color: #666; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -144,6 +153,13 @@
         </p>
     </section>
 
+    <!-- Notices & Updates Section -->
+    <section class="notices-section" id="notices">
+        <h2>Notices & Updates</h2>
+        <div class="notices-container" id="notices-container">
+            <p>Loading notices...</p>
+        </div>
+    </section>
     
     <!-- Consultation Section -->
 <section class="services" style="margin:50px 0; padding-left:40px; position: relative;">
@@ -384,6 +400,54 @@
         function openLogin() {
             window.location.href = "login.html";
         }
+
+        function timeAgo(uploadedTime) {
+            const now = new Date();
+            const past = new Date(uploadedTime);
+            const diffMs = now - past;
+            const diffSec = Math.floor(diffMs / 1000);
+            const diffMin = Math.floor(diffSec / 60);
+            const diffHr = Math.floor(diffMin / 60);
+            const diffDay = Math.floor(diffHr / 24);
+
+            if (diffSec < 60) return `${diffSec} sec ago`;
+            if (diffMin < 60) return `${diffMin} min ago`;
+            if (diffHr < 24) return `${diffHr} hr${diffHr > 1 ? 's' : ''} ago`;
+            return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;
+        }
+
+        // ✅ Fetch Notices from Google Apps Script
+        async function loadNotices() {
+            try {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbzxWH3hyYoGoCLh0n5O-KRQI3kyDNPL3vX2ZsWxIYra3KCNotwyxDf_Ahkg6U2JC6wwuA/exec?action=getNotices");
+                const data = await response.json();
+                const container = document.getElementById("notices-container");
+                container.innerHTML = "";
+
+                if (data.length === 0) {
+                    container.innerHTML = "<p>No notices available.</p>";
+                    return;
+                }
+
+                data.forEach(notice => {
+                    const card = document.createElement("div");
+                    card.className = "notice-card";
+                    const timeText = timeAgo(notice.time);
+                    card.innerHTML = `
+                        <div class="notice-time">${timeText}</div>
+                        <h3>${notice.title}</h3>
+                        <p>${notice.description}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                document.getElementById("notices-container").innerHTML = "<p>Failed to load notices.</p>";
+            }
+        }
+
+        loadNotices();
+
+
     </script>
 
 </body>

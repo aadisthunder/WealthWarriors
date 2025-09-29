@@ -185,12 +185,12 @@
 
       <div class="form-group horizontal">
         <div style="flex:1">
-          <label for="Gst no.">Gst No. </label>
-          <input type="text" id="gst" name="no" placeholder="ABCD45DEF9" required>
-        </div>
-        <div style="flex:1">
           <label for="portfolio">Portfolio</label>
-          <input type="number" id="portfolio" name="Portfolio" placeholder="5,00,000" required>
+          <input type="text" id="portfolio" name="Portfolio" placeholder="5,00,000" required>
+        </div>
+        <div style="flex:1" id="lossField">
+          <label for="totalloss">Total Loss </label>
+          <input type="text" id="totalloss" name="loss" placeholder="50,000">
         </div>
       </div>
 
@@ -214,6 +214,11 @@
 
     const topicInput = document.getElementById("topic");
     topicInput.value = formId;
+
+    const lossField = document.getElementById("lossField");
+    if (formId !== "Loss Recovery") {
+      lossField.style.display = "none"; // hide loss field
+    }
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbzxWH3hyYoGoCLh0n5O-KRQI3kyDNPL3vX2ZsWxIYra3KCNotwyxDf_Ahkg6U2JC6wwuA/exec";
     const form = document.getElementById("contactForm");
@@ -242,6 +247,10 @@
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
         topic: document.getElementById("topic").value,
+        portfolio: document.getElementById("portfolio").value,
+        loss: formId === "Loss Recovery" 
+              ? document.getElementById("totalloss").value 
+              : "None",
         message: document.getElementById("message").value,
         formId: formId
       };
@@ -268,7 +277,6 @@
         formMessage.style.display = "block";
         console.error(error);
       } finally {
-        
         // reset button
         btnText.textContent = "Send Message";
         spinner.style.display = "none";

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WealthWarriors Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #eaf5ff, #e6e0ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .auth-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    .auth-box h2 {
+      margin-bottom: 20px;
+    }
+
+    .auth-box label {
+      display: block;
+      text-align: left;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    .auth-box input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #0c5f31;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #084709;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .info {
+      color: blue;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2>WealthWarriors Login / Sign Up</h2>
+      <form id="loginForm">
+
+        <!-- Google Login Button -->
+        <button type="button" id="googleLoginBtn" class="btn">Continue with Google</button>
+        <p style="margin: 20px 0;">OR</p>
+
+        <!-- Email Input for Passwordless Sign-in -->
+        <label for="emailInput">Email</label>
+        <input type="email" id="emailInput" placeholder="Enter Email" required>
+
+        <button type="button" id="sendSignInLinkBtn" class="btn">Send Sign-in Link</button>
+
+        <p id="messageMsg" class="info"></p>
+        <p id="errorMsg" class="error"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs - Add these scripts just before your closing </body> tag -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // 1. Your Firebase Project Configuration
+    // IMPORTANT: Ensure these values are correct from your Firebase Console.
+    const firebaseConfig = {
+      apiKey: "AIzaSyDShGmV4u0ifflwod9hT_p4OPV9B9jWYhM",
+      authDomain: "wealthwarriors.firebaseapp.com",
+      projectId: "wealthwarriors",
+      storageBucket: "wealthwarriors.firebasestorage.app",
+      messagingSenderId: "508232394573",
+      appId: "1:508232394573:web:0169f8d79caba8f780f904",
+      measurementId: "G-9GMDB64JPQ"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Get elements
+    const googleLoginBtn = document.getElementById('googleLoginBtn');
+    const emailInput = document.getElementById('emailInput');
+    const sendSignInLinkBtn = document.getElementById('sendSignInLinkBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const messageMsg = document.getElementById('messageMsg'); // For success/info messages
+
+    // --- Helper Functions ---
+    function showMessage(element, message, isError = true) {
+      element.textContent = message;
+      element.style.color = isError ? 'red' : 'green'; // Use green for success messages
+    }
+
+    function clearMessages() {
+      errorMsg.textContent = '';
+      messageMsg.textContent = '';
+    }
+
+    // --- Authentication Logic ---
+
+    // 2. Google Sign-In
+    googleLoginBtn.addEventListener('click', async () => {
+      clearMessages();
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await auth.signInWithPopup(provider);
+        showMessage(messageMsg, "Google Sign-in successful!", false);
+        console.log("Google Sign-in successful:", auth.currentUser);
+        // Redirect to a dashboard or update UI
+        window.location.href = "index.html";
+        // window.location.href = "/dashboard.html";
+      } catch (error) {
+        showMessage(errorMsg, `Google Sign-in failed: ${error.message}`);
+        console.error("Google Sign-in error:", error);
+      }
+    });
+
+    // 3. Email Link Sign-in (Send Link)
+    sendSignInLinkBtn.addEventListener('click', async () => {
+      clearMessages();
+      const email = emailInput.value;
+
+      if (!email) {
+        showMessage(errorMsg, "Please enter your email address.");
+        return;
+      }
+
+      // Configure the actionCodeSettings for the email link
+      const actionCodeSettings = {
+        url: window.location.href, // Redirect back to this page
+        handleCodeInApp: true, // This must be true
+      };
+
+      try {
+        await auth.sendSignInLinkToEmail(email, actionCodeSettings);
+        // Save the email to localStorage so you can complete sign-in on the next page load
+        window.localStorage.setItem('emailForSignIn', email);
+        showMessage(messageMsg, `A sign-in link has been sent to ${email}. Please check your inbox and spam folder!`, false);
+        console.log("Sign-in link sent!");
+      } catch (error) {
+        showMessage(errorMsg, `Failed to send sign-in link: ${error.message}`);
+        console.error("Error sending sign-in link:", error);
+      }
+    });
+
+    // 4. Email Link Sign-in (Complete Sign-in on page load after redirection)
+    // This runs when the page loads, in case the user clicked an email link.
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // User is signed in.
+        showMessage(messageMsg, `Welcome, ${user.email}!`, false);
+        console.log("User is signed in:", user.uid, user.email);
+        // Redirect to a dashboard or update UI
+        // window.location.href = "/dashboard.html";
+      } else {
+        // User is signed out, or the page loaded with an email link
+        console.log("User is signed out or checking for email link.");
+
+        if (auth.isSignInWithEmailLink(window.location.href)) {
+          let email = window.localStorage.getItem('emailForSignIn');
+          if (!email) {
+            // User entered email on a different device or browser. Prompt for email.
+            email = window.prompt('Please provide your email for confirmation:');
+          }
+          if (email) {
+            try {
+              await auth.signInWithEmailLink(email, window.location.href);
+              window.localStorage.removeItem('emailForSignIn'); // Clean up
+              showMessage(messageMsg, `Email sign-in successful for ${email}!`, false);
+              console.log("Email link sign-in successful!");
+              // Clear the email link from the URL to avoid issues on refresh
+              window.history.replaceState({}, document.title, window.location.pathname);
+              // Redirect or update UI
+              // window.location.href = "/dashboard.html";
+              window.location.href = "index.html";
+            } catch (error) {
+              showMessage(errorMsg, `Email link sign-in failed: ${error.message}`);
+              console.error("Error signing in with email link:", error);
+            }
+          } else {
+            showMessage(errorMsg, "Email required to complete sign-in.", true);
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

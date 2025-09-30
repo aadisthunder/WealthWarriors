@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wealth Warriors - Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #eaf5ff, #e6e0ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .account-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #0b3d91;
+    }
+
+    .email {
+      margin: 15px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #0c5f31;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #084709;
+    }
+  </style>
+</head>
+<body>
+  <div class="account-box">
+    <h2>Your Account</h2>
+    <p class="email" id="userEmail">Loading...</p>
+    <button class="btn" id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Firebase Config (same as other files)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDShGmV4u0ifflwod9hT_p4OPV9B9jWYhM",
+      authDomain: "wealthwarriors.firebaseapp.com",
+      projectId: "wealthwarriors",
+      storageBucket: "wealthwarriors.firebasestorage.app",
+      messagingSenderId: "508232394573",
+      appId: "1:508232394573:web:0169f8d79caba8f780f904",
+      measurementId: "G-9GMDB64JPQ"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Show logged-in email
+    auth.onAuthStateChanged(user => {
+      const emailElement = document.getElementById('userEmail');
+      if (user) {
+        emailElement.textContent = user.email;
+      } else {
+        // If not logged in, redirect to index.html
+        window.location.href = "index.html";
+      }
+    });
+
+    // Logout button
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      try {
+        await auth.signOut();
+        window.location.href = "index.html"; // Redirect after logout
+      } catch (error) {
+        alert("Logout failed: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

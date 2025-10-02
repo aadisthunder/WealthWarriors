@@ -1,3 +1,4 @@
+
 /* General Styles */
 * {
     margin: 0;
@@ -358,3 +359,98 @@ body {
         flex-direction: column;
     }
 }
+
+
+.banner-box { position: relative; width: 100%; max-width: 1100px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin: 0 auto; display: flex; justify-content: center; align-items: center; }
+.banner-box img { width: 100%; height: auto; object-fit: cover; opacity: 0.5; transition: transform 0.3s ease-in-out; }
+.banner-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 20px; text-align: center; width: 90%; }
+.banner-text h1 { font-size: 2.5rem; font-weight: 700; color: #0b3d91; }
+.banner-text p { font-size: 1rem; margin-top: 15px; color: #000; background: rgba(255,255,255,0.85); padding: 10px; border-radius: 8px; font-weight: 500; }
+
+@media (max-width: 768px) { .banner-box img { transform: scale(1.2); } .banner-text h1 { font-size: 1.8rem; } .banner-text p { font-size: 0.95rem; } }
+@media (min-width: 1024px) { .banner-box img { transform: scale(1.05); } }
+
+body { overflow-x: hidden; }
+.feature-icon img, .stat-icon img { width: 50px; height: 50px; margin-bottom: 15px; transition: transform 0.3s ease; }
+img:not([src$="NSEbg.jpg"]):hover { transform: scale(1.05); }
+.feature-item:hover, .stat-card:hover, .cta-image img:hover { transform: scale(1.03); transition: transform 0.3s ease; }
+.feature-item, .stat-card, .cta-image img { transition: transform 0.3s ease; }
+
+/* Notices */
+.notices-section { background: #f9f9f9; padding: 15px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin: 20px 0; }
+.notices-header { display: flex; justify-content: space-between; align-items: center; }
+.notices-container { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 20px; margin-top:10px; }
+.notice-card { background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-bottom: 8px; position: relative; }
+.notice-card h3 { font-size: 1.2rem; color: #0b3d91; margin-bottom: 5px; }
+.notice-card p { font-size: 0.95rem; color: #333; line-height: 1.5; }
+.notice-media img, .notice-media video { width: 100%; display: block; margin-bottom: 10px; border-radius: 8px; max-height: 360px; object-fit: cover; }
+.notice-time { position: absolute; top: 8px; right: 12px; font-size: 0.8rem; color: #666; font-weight: 500; }
+
+/* Sidebar */
+.sidebar { position: fixed; top:0; left:-250px; width:250px; height:100%; background: linear-gradient(to bottom,#ffffff,#ffffff); color:#000; padding-top:80px; transition:0.3s; z-index:1000; }
+.sidebar a { display:block; padding:12px 20px; color:#000; text-decoration:none; font-weight:500; }
+.sidebar a:hover { background:#caffcd; }
+.sidebar.active { left:0; }
+.sidebar-toggle { font-size:24px; cursor:pointer; background:none; border:none; color:#0b3d91; margin-right:10px; }
+
+/* Overlay */
+.overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); display:none; z-index:900; }
+.overlay.active { display:block; }
+
+/* Align sidebar + logo */
+.nav-left { display:flex; align-items:center; }
+
+/* Responsive tweaks */
+@media(max-width:480px) { .banner-text h1 { font-size:1.6rem; } .notice-card { padding: 14px; } }
+
+/* Responsive Typography Fix */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+
+/* Scale headings */
+h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+h3 {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+}
+
+/* Scale normal text */
+p, li, a, button {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.6;
+}
+
+/* Navbar scaling */
+.navbar a {
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+}
+
+/* Stat Cards scaling */
+.stat-card h3 {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+}
+.stat-card p {
+  font-size: clamp(0.85rem, 2vw, 1rem);
+}
+
+/* Footer scaling */
+.footer {
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+}
+
+/* Extra spacing for small devices */
+@media (max-width: 480px) {
+  h1, h2, h3 {
+    margin-bottom: 10px;
+  }
+  p {
+    margin-bottom: 12px;
+  }
+}
+
